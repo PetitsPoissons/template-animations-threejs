@@ -1,6 +1,5 @@
 import './style.css';
 import * as THREE from 'three';
-import gsap from 'gsap';
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
@@ -33,17 +32,12 @@ renderer.setSize(sizes.width, sizes.height);
 renderer.render(scene, camera);
 
 // Clock
-// const clock = new THREE.Clock();
-
-// Using the gsap library, which has its on "tick"
-// We are telling what object we animate, to what location, for what duration and after what delay (optional)
-gsap.to(mesh.position, { duration: 1, delay: 1, x: 2 });
-gsap.to(mesh.position, { duration: 1, delay: 2, x: 0 }); // make the cube come back
+const clock = new THREE.Clock();
 
 // Animations
 const tick = () => {
 	// Clock
-	// const elapsedTime = clock.getElapsedTime(); // this time is expressed in seconds
+	const elapsedTime = clock.getElapsedTime(); // this time is expressed in seconds
 	// console.log(elapsedTime);
 
 	// Update object: we make the object move
@@ -54,9 +48,9 @@ const tick = () => {
 	// mesh.position.x = Math.cos(elapsedTime);
 
 	// Update camera: it's the camera that is moving here
-	// camera.position.x = Math.sin(elapsedTime);
-	// camera.position.y = Math.cos(elapsedTime);
-	// camera.lookAt(mesh.position);
+	camera.position.x = Math.sin(elapsedTime);
+	camera.position.y = Math.cos(elapsedTime);
+	camera.lookAt(mesh.position);
 
 	// Render
 	renderer.render(scene, camera);
